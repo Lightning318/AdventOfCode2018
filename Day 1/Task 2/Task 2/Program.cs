@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Task_2
 {
-    public class Program
+    public static class Program
     {
         static void Main(string[] args)
         {
@@ -20,8 +20,9 @@ namespace Task_2
             var frequency = 0;
             var triedValues = new HashSet<int>();
         
-            var changes = FrequencyChange(input.Split(' ')
-                               .Select(int.Parse))
+            var changes = input.Split(' ')
+                               .Select(int.Parse)
+                               .ToCircularEnumerable()
                                .GetEnumerator();
         
             while(!triedValues.Contains(frequency))
@@ -33,7 +34,7 @@ namespace Task_2
             return frequency;
         }
 
-        public static IEnumerable<int> FrequencyChange(IEnumerable<int> changes)
+        public static IEnumerable<T> ToCircularEnumerable<T>(this IEnumerable<T> changes)
         {
             while (true)
             {
